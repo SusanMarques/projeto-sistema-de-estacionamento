@@ -46,8 +46,56 @@ body {
 }
 
 .content {
+    background-color: #F6F7FB;
     margin-top: 60px;
     padding: 20px;
     width: calc(100% - 60px);
     box-sizing: border-box;
+}
+
+
+ 
+#card-formulario{
+    background-color: #ffffff; 
+    padding: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%; 
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+#formulario-principal{
+    display: flex;
+    gap: 10px; 
+    align-items: center; 
+    padding: 10px; 
+    background-color: #ffffff; 
+    width: 80%;
+}
+
+#placa, #tipo, #descricao{
+    width: 30%; 
+}
+
+#botao-form {
+    width: 10%; 
+} 
+
+#data-table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table {
+    width: 100%;
+    background-color: #ffffff;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #ddd;
 }

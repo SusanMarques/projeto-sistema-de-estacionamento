@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Sistema estacionamento</title>
 </head>
 <body>
@@ -24,8 +25,39 @@
         </div>
     </div>
 
-    <div class="content">
-        <h1>Conteúdo Principal</h1>
-    </div>
+    <main class="content">
+        <div id="card-formulario">
+            <form id="formulario-principal" action="">
+                <input id="placa" class="form-control" placeholder="placa" type="text">
+                <input id="tipo" class="form-control" placeholder="tipo" type="text">
+                <input id="descricao" class="form-control" placeholder="descrição" type="text">
+                <button id="botao-form" type="button" class="btn btn-secondary" onclick="adicionarNaTabela()">&rarr;</button>
+            </form>
+        </div>
+
+
+        <div id="data-table">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Hora</th>
+                        <th>Valor da Hora</th>
+                        <th>Forma de Pagamento</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-da-tabela">
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </main>
+   <script src="../js/script.js"></script>
 </body>
 </html>
