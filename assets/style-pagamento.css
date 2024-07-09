@@ -62,58 +62,53 @@ body {
     padding: 20px;
     width: calc(100% - 60px);
     box-sizing: border-box;
-}
-
-
- 
-#card-formulario{
-    background-color: #ffffff; 
-    padding: 20px; 
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 20%; 
-    box-sizing: border-box;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    flex-direction: column;
 }
 
-#formulario-principal{
-    display: flex;
-    gap: 10px; 
-    align-items: center; 
-    padding: 10px; 
-    background-color: #ffffff; 
-    width: 80%;
-}
 
-#placa, #tipo, #descricao{
-    width: 30%; 
-}
-
-#botao-form {
-    width: 10%; 
-} 
-
-#data-table {
-    width: 100%;
-    margin-top: 20px;
-}
-
-.table {
-    width: 100%;
-    background-color: #ffffff;
-    border-collapse: collapse;
-}
-
-.table th, .table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-}
 
 #card-pagamento{
-    border: red 1px solid;
-    height: 80%; 
+    background-color: #D9D9D9;
+    /* border: red 1px solid; */
     width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px;
+    display: flex;
 }
 
+#cupom-pagamento{
+    /* border: red 1px solid; */
+    margin-top: 5%;
+    margin-left: 5%;
+    height: 80%;
+    width: 40%;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+#imagem{
+    margin-left: 10%;
+}
+#botoes{
+    background-color: #D9D9D9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    height: 25%;
+    align-items: center;
+}
+
+#pix , #credito, #debito, #dinheiro{
+    background-color: #fff;
+    width: 50px;
+    width: 20%;
+    border: none;
+    height: 5%;
+    height: 50px;
+
+}

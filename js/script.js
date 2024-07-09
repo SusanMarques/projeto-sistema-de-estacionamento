@@ -42,3 +42,46 @@ function adicionarNaTabela() {
         const linha = button.parentNode.parentNode;
         linha.parentNode.removeChild(linha);
     }
+
+
+// função para relógio
+
+    function startTime()
+    {
+    var today=new Date();
+    var h=today.getHours();
+    var m=today.getMinutes();
+    var s=today.getSeconds();
+    // adicione um zero na frente de números<10
+    m=checkTime(m);
+    s=checkTime(s);
+    document.getElementById('hora').innerHTML=h+":"+m+":"+s;
+    t=setTimeout('startTime()',500);
+    }
+    function checkTime(i)
+    {
+    if (i<10)
+    {
+    i="0" + i;
+    }
+    return i;
+}
+
+//buscar por placa
+
+function buscarPlaca() {
+    const input = document.getElementById("search-placa").value.toLowerCase();
+    const linhas = document.getElementById("corpo-da-tabela").getElementsByTagName("tr");
+
+    for (let i = 0; i < linhas.length; i++) {
+        const celulaPlaca = linhas[i].getElementsByTagName("td")[0];
+        if (celulaPlaca) {
+            const placa = celulaPlaca.textContent || celulaPlaca.innerText;
+            if (placa.toLowerCase().indexOf(input) > -1) {
+                linhas[i].style.display = "";
+            } else {
+                linhas[i].style.display = "none";
+            }
+        }
+    }
+}
