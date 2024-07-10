@@ -5,7 +5,7 @@ let mainWindow = null;
 app.on('ready', ()=>{
     console.log('Iniciando electron');
     mainWindow = new BrowserWindow({
-        width: 1000, 
+        width: 1500, 
         height: 1000
        
 
