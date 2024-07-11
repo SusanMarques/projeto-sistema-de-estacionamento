@@ -76,7 +76,9 @@ body {
     box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    flex-direction: column;
 }
+
 
 #formulario-principal{
     display: flex;
@@ -116,4 +118,6 @@ body {
     height: 80%; 
     width: 80%;
 }
+
+
 

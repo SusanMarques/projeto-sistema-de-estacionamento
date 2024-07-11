@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <td class="hora-saida">${dadosLinha.horaSaida || ''}</td>
             <td>
                 <button class="btn btn-danger btn-sm" onclick="deletarLinha(this, '${dadosLinha.placa}')">Excluir</button>
-                <button class="btn btn-primary btn-sm" onclick="marcarSaida(this, '${dadosLinha.placa}')">Saída</button>
+                <button class="btn btn-primary btn-sm" onclick="marcarSaida(this, '${dadosLinha.placa}')">Checkout</button>
             </td>
         `;
         corpoDaTabela.appendChild(novaLinha);

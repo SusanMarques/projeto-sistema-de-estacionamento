@@ -27,22 +27,31 @@
     </div>
 
     <main class="content">
-        <div id="search-section">
-            <input id="search-placa" class="form-control" placeholder="Buscar placa" type="text" oninput="buscarPlaca()">
-        </div>
 
-        <div id="card-pagamento">
-            <div id="cupom-pagamento"></div>
-            <div id="imagem">
-                <img src="../assets/img/logo estaciona fácil preto.png" alt="">
+            <div id="bloco-pagamento">
+            <div id="search-section">
+                <input id="search-placa" class="form-control" placeholder="Buscar placa" type="text" oninput="buscarPlaca()">
+                <button id="search-button">&#128269;</button>
+            </div>
+
+            <div id="card-pagamento">
+                <div id="cupom-pagamento">
+                    
+                </div>
+                
+                <div id="imagem">
+                    <img id="logo" src="../assets/img/logo estaciona fácil preto.png" alt="">
+                </div>
+            </div>
+            <div id="botoes">
+                <h5>Forma de pagamento:</h5>
+                <button class="btn btn-dark">PIX</button>
+                <button class="btn btn-dark">CARTÃO DE CRÉDITO</button>
+                <button class="btn btn-dark">CARTÃO DE DÉBITO</button>
+                <button class="btn btn-dark">DINHEIRO</button>
             </div>
         </div>
-        <div id="botoes">
-            <button id="pix">PIX</button>
-            <button id="credito">CARTÃO DE CRÉDITO</button>
-            <button id="debito">CARTÃO DE DÉBITO</button>
-            <button id="dinheiro">DINHEIRO</button>
-        </div>
+        
     </main>
     <script src="../js/pagamento.js"></script>
 </body>
