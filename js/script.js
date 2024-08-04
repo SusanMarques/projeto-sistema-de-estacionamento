@@ -1,17 +1,18 @@
-let registros = {};
-let totalVagas = 30; // Definindo o total de vagas
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Função para carregar registros do localStorage ao inicializar a página
-    function carregarRegistros() {
-        const registrosSalvos = localStorage.getItem('registros');
-        if (registrosSalvos) {
-            registros = JSON.parse(registrosSalvos);
-            for (const placa in registros) {
-                adicionarLinhaNaTabela(registros[placa]);
+    let totalVagas = 30; // Definindo o total de vagas
+
+    // Função para carregar registros do servidor ao inicializar a página
+    async function carregarRegistros() {
+        try {
+            const response = await fetch('http://localhost:3000/api/registros');
+            const registros = await response.json();
+            for (const registro of registros) {
+                adicionarLinhaNaTabela(registro);
             }
+            atualizarVagasDisponiveis(registros);
+        } catch (error) {
+            console.error('Erro ao carregar registros:', error);
         }
-        atualizarVagasDisponiveis(); // Atualizar vagas disponíveis ao carregar registros
     }
 
     // Função para adicionar uma linha na tabela
@@ -21,27 +22,27 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Elemento 'corpo-da-tabela' não encontrado.");
             return;
         }
-        
+
         const novaLinha = document.createElement('tr');
         novaLinha.innerHTML = `
             <td>${dadosLinha.placa}</td>
             <td>${dadosLinha.tipo}</td>
             <td>${dadosLinha.descricao}</td>
-            <td>${dadosLinha.horaAtual}</td>
-            <td>${dadosLinha.valorHora}</td>
-            <td>${dadosLinha.formaPagamento}</td>
+            <td>${new Date(dadosLinha.hora_entrada).toLocaleTimeString()}</td>
+            <td>${dadosLinha.valor_hora}</td>
+            <td>${dadosLinha.forma_pagamento}</td>
             <td>${dadosLinha.status}</td>
-            <td class="hora-saida">${dadosLinha.horaSaida || ''}</td>
+            <td class="hora-saida">${dadosLinha.hora_saida ? new Date(dadosLinha.hora_saida).toLocaleTimeString() : ''}</td>
             <td>
-                <button class="btn btn-danger btn-sm" onclick="deletarLinha(this, '${dadosLinha.placa}')">Excluir</button>
-                <button class="btn btn-primary btn-sm" onclick="marcarSaida(this, '${dadosLinha.placa}')">Checkout</button>
+                <button class="btn btn-danger btn-sm" onclick="deletarLinha(this, '${dadosLinha.id}')">Excluir</button>
+                <button class="btn btn-primary btn-sm" onclick="marcarSaida(this, '${dadosLinha.id}')">Checkout</button>
             </td>
         `;
         corpoDaTabela.appendChild(novaLinha);
     }
 
     // Função para adicionar os dados do formulário na tabela
-    function adicionarNaTabela() {
+    async function adicionarNaTabela() {
         // Pegar os valores dos inputs
         const placa = document.getElementById('placa').value;
         const tipo = document.getElementById('tipo').value;
@@ -49,10 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Pega a hora atual
         const agora = new Date();
-        const horaAtual = agora.toLocaleTimeString();
-
-        // Valores padrões 
-        const valorHora = "R$ 12,00";
+        const valorHora = 12.00;
         const formaPagamento = "Cartão";
         const status = "A pagar"; // Mantido como "A pagar"
 
@@ -61,67 +59,90 @@ document.addEventListener('DOMContentLoaded', function() {
             placa: placa,
             tipo: tipo,
             descricao: descricao,
-            horaAtual: horaAtual,
-            valorHora: valorHora,
-            formaPagamento: formaPagamento,
-            status: status,
-            horaSaida: '' // Inicialmente vazio
+            hora_entrada: agora,
+            valor_hora: valorHora,
+            forma_pagamento: formaPagamento,
+            status: status
         };
 
-        // Adicionar os dados ao dicionário de registros
-        registros[placa] = dadosLinha;
+        try {
+            const response = await fetch('http://localhost:3000/api/registros', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dadosLinha)
+            });
 
-        // Salvar os registros no localStorage
-        localStorage.setItem('registros', JSON.stringify(registros));
-
-        // Adicionar a linha na tabela
-        adicionarLinhaNaTabela(dadosLinha);
-
-        // Atualizar vagas disponíveis
-        atualizarVagasDisponiveis();
+            if (response.ok) {
+                const novoRegistro = await response.json();
+                adicionarLinhaNaTabela(novoRegistro);
+                atualizarVagasDisponiveis();
+            } else {
+                console.error('Erro ao adicionar registro');
+            }
+        } catch (error) {
+            console.error('Erro ao adicionar registro:', error);
+        }
 
         // Limpar os inputs após adicionar os dados
         document.getElementById('formulario-principal').reset();
     }
 
     // Função para marcar a saída
-    window.marcarSaida = function(button, placa) {
+    window.marcarSaida = async function(button, id) {
         const confirmacao = confirm("Você realmente gostaria de registrar a saída?");
         if (confirmacao) {
-            const linha = button.parentNode.parentNode;
-            const agora = new Date();
-            const horaSaida = agora.toLocaleTimeString();
+            try {
+                const response = await fetch(`http://localhost:3000/api/registros/${id}/saida`, {
+                    method: 'PUT'
+                });
 
-            // Atualizar a hora de saída no dicionário de registros
-            registros[placa].horaSaida = horaSaida;
-
-            // Salvar os registros atualizados no localStorage
-            localStorage.setItem('registros', JSON.stringify(registros));
-
-            // Atualizar a hora de saída na tabela
-            const celulaHoraSaida = linha.getElementsByClassName('hora-saida')[0];
-            celulaHoraSaida.textContent = horaSaida;
+                if (response.ok) {
+                    const registroAtualizado = await response.json();
+                    const linha = button.parentNode.parentNode;
+                    const celulaHoraSaida = linha.getElementsByClassName('hora-saida')[0];
+                    celulaHoraSaida.textContent = new Date(registroAtualizado.hora_saida).toLocaleTimeString();
+                } else {
+                    console.error('Erro ao registrar saída');
+                }
+            } catch (error) {
+                console.error('Erro ao registrar saída:', error);
+            }
         }
     };
 
-    // Função para deletar uma linha e remover do dicionário
-    window.deletarLinha = function(button, placa) {
-        const linha = button.parentNode.parentNode;
-        linha.parentNode.removeChild(linha);
-        delete registros[placa]; // Remover a entrada do dicionário
-        localStorage.setItem('registros', JSON.stringify(registros)); // Atualizar o localStorage
+    // Função para deletar uma linha e remover do banco de dados
+    window.deletarLinha = async function(button, id) {
+        try {
+            const response = await fetch(`http://localhost:3000/api/registros/${id}`, {
+                method: 'DELETE'
+            });
 
-        // Atualizar vagas disponíveis
-        atualizarVagasDisponiveis();
+            if (response.ok) {
+                const linha = button.parentNode.parentNode;
+                linha.parentNode.removeChild(linha);
+                atualizarVagasDisponiveis();
+            } else {
+                console.error('Erro ao deletar registro');
+            }
+        } catch (error) {
+            console.error('Erro ao deletar registro:', error);
+        }
     };
 
     // Função para atualizar a quantidade de vagas disponíveis
     function atualizarVagasDisponiveis() {
-        const vagasDisponiveis = totalVagas - Object.keys(registros).length;
-        const vagasElement = document.getElementById('quantidade-de-vagas');
-        if (vagasElement) {
-            vagasElement.textContent = `${vagasDisponiveis} vagas`;
-        }
+        fetch('http://localhost:3000/api/registros')
+            .then(response => response.json())
+            .then(registros => {
+                const vagasDisponiveis = totalVagas - registros.length;
+                const vagasElement = document.getElementById('quantidade-de-vagas');
+                if (vagasElement) {
+                    vagasElement.textContent = `${vagasDisponiveis} vagas`;
+                }
+            })
+            .catch(error => console.error('Erro ao atualizar vagas disponíveis:', error));
     }
 
     // Função para buscar por placa

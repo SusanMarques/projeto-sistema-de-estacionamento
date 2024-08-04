@@ -1,49 +1,50 @@
 document.addEventListener('DOMContentLoaded', function() {
-    function carregarRegistrosAPagar() {
-        const registrosSalvos = localStorage.getItem('registros');
-        const cupomPagamentoDiv = document.getElementById('cupom-pagamento');
-
-        if (registrosSalvos) {
-            const registros = JSON.parse(registrosSalvos);
+    async function carregarRegistrosAPagar() {
+        try {
+            const response = await fetch('http://localhost:3001/api/registros/apagar');
+            const registros = await response.json();
+            const cupomPagamentoDiv = document.getElementById('cupom-pagamento');
             let detalhesHTML = '<h2>Registros a Pagar</h2><table class="table"><thead><tr><th>Placa</th><th>Hora de Entrada</th><th>Hora de Saída</th><th>Tempo Total (Minutos)</th><th>Valor a Pagar</th><th>Ações</th></tr></thead><tbody>';
 
-            for (const placa in registros) {
-                const registro = registros[placa];
-                if (registro.status === 'A pagar') {
-                    const horaEntrada = new Date('1970-01-01T' + registro.horaAtual);
-                    const horaSaida = new Date('1970-01-01T' + registro.horaSaida);
+            registros.forEach(registro => {
+                const horaEntrada = new Date(registro.hora_entrada);
+                const horaSaida = new Date(registro.hora_saida);
 
-                    if (horaSaida > horaEntrada) {
-                        const tempoTotalMinutos = Math.ceil((horaSaida - horaEntrada) / (1000 * 60));
-                        const valorAPagar = (tempoTotalMinutos * 0.20).toFixed(2);
+                if (horaSaida > horaEntrada) {
+                    const tempoTotalMinutos = Math.ceil((horaSaida - horaEntrada) / (1000 * 60));
+                    const valorAPagar = (tempoTotalMinutos * 0.20).toFixed(2);
 
-                        detalhesHTML += `<tr>
-                            <td>${registro.placa}</td>
-                            <td>${registro.horaAtual}</td>
-                            <td>${registro.horaSaida}</td>
-                            <td>${tempoTotalMinutos}</td>
-                            <td>R$ ${valorAPagar}</td>
-                            <td><button class="btn btn-success" onclick="pagar('${placa}')">Pagar</button></td>
-                        </tr>`;
-                    }
+                    detalhesHTML += `<tr>
+                        <td>${registro.placa}</td>
+                        <td>${horaEntrada.toLocaleTimeString()}</td>
+                        <td>${horaSaida ? horaSaida.toLocaleTimeString() : ''}</td>
+                        <td>${tempoTotalMinutos}</td>
+                        <td>R$ ${valorAPagar}</td>
+                        <td><button class="btn btn-success" onclick="pagar(${registro.id})">Pagar</button></td>
+                    </tr>`;
                 }
-            }
+            });
 
             detalhesHTML += '</tbody></table>';
             cupomPagamentoDiv.innerHTML = detalhesHTML;
+        } catch (error) {
+            console.error('Erro ao carregar registros:', error);
         }
     }
 
-    function pagar(placa) {
-        const registrosSalvos = localStorage.getItem('registros');
-        if (registrosSalvos) {
-            const registros = JSON.parse(registrosSalvos);
-            registros[placa].status = 'Pago';
+    async function pagar(id) {
+        try {
+            const response = await fetch(`http://localhost:3001/api/registros/${id}/pagar`, {
+                method: 'PUT'
+            });
 
-            localStorage.setItem('registros', JSON.stringify(registros));
-
-            // Recarregar a página para atualizar a lista de registros a pagar
-            carregarRegistrosAPagar();
+            if (response.ok) {
+                carregarRegistrosAPagar(); // Atualiza a lista de registros a pagar
+            } else {
+                console.error('Erro ao pagar registro');
+            }
+        } catch (error) {
+            console.error('Erro ao pagar registro:', error);
         }
     }
 
@@ -64,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Função para relógio
     function startTime() {
         var today = new Date();
         var h = today.getHours();

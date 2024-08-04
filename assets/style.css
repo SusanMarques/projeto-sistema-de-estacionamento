@@ -7,7 +7,15 @@ body, html {
 body {
     display: flex;
 }
-
+h5{
+    font-family: "Nunito Sans", sans-serif;
+}
+th{
+    font-family: "Nunito Sans", sans-serif;
+}
+label{
+    font-family: "Nunito Sans", sans-serif;
+}
 #icone-usuario{
     width: 40px;
     height: 40px;
