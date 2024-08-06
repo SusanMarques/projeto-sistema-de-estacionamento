@@ -68,6 +68,10 @@ body {
     flex-direction: column;
 }
 
+h2{
+    text-align: center;
+}
+
 #search-placa{
     width: 450px;
     margin: 20px 5px 0 60px;

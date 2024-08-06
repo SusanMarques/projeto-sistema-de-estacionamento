@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Valores padrões 
         const valorHora = "R$ 12,00";
         const formaPagamento = "Cartão";
-        const status = "A pagar"; // Mantido como "A pagar"
+        let status = "A pagar"; // Mantido como "A pagar"
 
         // Criar um objeto para os dados da linha
         const dadosLinha = {
