@@ -89,7 +89,7 @@ body {
     width: 80%;
 }
 
-#placa, #tipo, #descricao{
+#placa, #tipo, #descricao, #cor{
     width: 30%; 
 }
 
@@ -118,6 +118,7 @@ body {
     height: 80%; 
     width: 80%;
 }
+
 
 
 
