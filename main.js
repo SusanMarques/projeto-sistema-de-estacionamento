@@ -1,13 +1,14 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const { exec } = require('child_process');
+const { spawn } = require('child_process');
+
+let serverProcess;
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1500,
         height: 1000,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
             contextIsolation: false,
         },
@@ -17,10 +18,12 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-    // Inicia o servidor Express
-    const server = exec('node server.js');
-    server.stdout.on('data', (data) => console.log(`Servidor: ${data}`));
-    server.stderr.on('data', (data) => console.error(`Erro do Servidor: ${data}`));
+    // Inicia o servidor Express usando spawn
+    serverProcess = spawn('node', ['server.js'], { stdio: 'inherit' });
+
+    serverProcess.on('close', (code) => {
+        console.log(`Servidor encerrado com código ${code}`);
+    });
 
     createWindow();
 
@@ -32,7 +35,17 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
+    if (serverProcess) {
+        serverProcess.kill();
+    }
+
     if (process.platform !== 'darwin') {
         app.quit();
+    }
+});
+
+app.on('before-quit', () => {
+    if (serverProcess) {
+        serverProcess.kill();
     }
 });

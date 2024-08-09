@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para carregar registros do servidor ao inicializar a página
     async function carregarRegistros() {
         try {
-            const response = await fetch('http://localhost:3000/api/registros');
+            const response = await fetch('http://localhost:3001/api/registros');
             const registros = await response.json();
             for (const registro of registros) {
                 adicionarLinhaNaTabela(registro);
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/registros', {
+            const response = await fetch('http://localhost:3001/api/registros', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirmacao = confirm("Você realmente gostaria de registrar a saída?");
         if (confirmacao) {
             try {
-                const response = await fetch(`http://localhost:3000/api/registros/${id}/saida`, {
+                const response = await fetch(`http://localhost:3001/api/registros/${id}/saida`, {
                     method: 'PUT'
                 });
 
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para deletar uma linha e remover do banco de dados
     window.deletarLinha = async function(button, id) {
         try {
-            const response = await fetch(`http://localhost:3000/api/registros/${id}`, {
+            const response = await fetch(`http://localhost:3001/api/registros/${id}`, {
                 method: 'DELETE'
             });
 
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Função para atualizar a quantidade de vagas disponíveis
     function atualizarVagasDisponiveis() {
-        fetch('http://localhost:3000/api/registros')
+        fetch('http://localhost:3001/api/registros')
             .then(response => response.json())
             .then(registros => {
                 const vagasDisponiveis = totalVagas - registros.length;
@@ -185,8 +185,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carregar os registros quando a página for carregada
     carregarRegistros();
 
-    // Anexar eventos aos botões
-    document.getElementById('botao-form').addEventListener('click', adicionarNaTabela);
-    document.getElementById('search-placa').addEventListener('input', buscarPlaca);
+    // Anexar eventos aos botões com verificações
+    const botaoForm = document.getElementById('botao-form');
+    if (botaoForm) {
+        botaoForm.addEventListener('click', adicionarNaTabela);
+    }
+
+    const searchPlaca = document.getElementById('search-placa');
+    if (searchPlaca) {
+        searchPlaca.addEventListener('input', buscarPlaca);
+    }
+
+    // Iniciar o relógio
     startTime();
 });
