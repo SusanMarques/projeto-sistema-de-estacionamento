@@ -8,6 +8,7 @@ function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1500,
         height: 1000,
+        icon: 'assets/icon/logo-smart-park.ico',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
