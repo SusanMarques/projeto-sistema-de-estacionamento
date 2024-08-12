@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("Elemento 'corpo-da-tabela' não encontrado.");
             return;
         }
-
+    
         const novaLinha = document.createElement('tr');
         novaLinha.innerHTML = `
             <td>${dadosLinha.placa}</td>
@@ -36,12 +36,12 @@ document.addEventListener('DOMContentLoaded', function() {
             <td class="hora-saida">${dadosLinha.hora_saida ? new Date(dadosLinha.hora_saida).toLocaleTimeString() : ''}</td>
             <td>
                 <button class="btn btn-danger btn-sm" onclick="deletarLinha(this, '${dadosLinha.id}')">Excluir</button>
-                <button class="btn btn-primary btn-sm" onclick="marcarSaida(this, '${dadosLinha.id}')">Checkout</button>
+                ${dadosLinha.status === 'Pago' ? '' : `<button class="btn btn-primary btn-sm" onclick="marcarSaida(this, '${dadosLinha.id}')">Checkout</button>`}
             </td>
         `;
         corpoDaTabela.appendChild(novaLinha);
     }
-
+    
     // Função para adicionar os dados do formulário na tabela
     async function adicionarNaTabela() {
         // Pegar os valores dos inputs

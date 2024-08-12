@@ -9,18 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
             registros.forEach(registro => {
                 const horaEntrada = new Date(registro.hora_entrada);
                 const horaSaida = new Date(registro.hora_saida);
-
+            
                 if (horaSaida > horaEntrada) {
                     const tempoTotalMinutos = Math.ceil((horaSaida - horaEntrada) / (1000 * 60));
                     const valorAPagar = (tempoTotalMinutos * 0.20).toFixed(2);
-
+            
                     detalhesHTML += `<tr>
                         <td>${registro.placa}</td>
                         <td>${horaEntrada.toLocaleTimeString()}</td>
                         <td>${horaSaida ? horaSaida.toLocaleTimeString() : ''}</td>
                         <td>${tempoTotalMinutos}</td>
                         <td>R$ ${valorAPagar}</td>
-                        <td><button class="btn btn-success" onclick="pagar(${registro.id})">Pagar</button></td>
+                        <td>${registro.status === 'Pago' ? 'Pago' : `<button class="btn btn-success" onclick="pagar(${registro.id})">Pagar</button>`}</td>
                     </tr>`;
                 }
             });
@@ -32,14 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    async function pagar(id) {
+    window.pagar = async function(id) {
         try {
             const response = await fetch(`http://localhost:3001/api/registros/${id}/pagar`, {
                 method: 'PUT'
             });
-
+    
             if (response.ok) {
                 carregarRegistrosAPagar(); // Atualiza a lista de registros a pagar
+                alert('Pagamento realizado com sucesso!');
             } else {
                 console.error('Erro ao pagar registro');
             }

@@ -76,4 +76,24 @@ router.get('/registros/apagar', async (req, res) => {
     }
 });
 
+// rota para alterar de a pagar para pago quando apertar o botão
+router.put('/registros/:id/pagar', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const result = await pool.query(
+            'UPDATE registros SET status = $1 WHERE id = $2 RETURNING *',
+            ['Pago', id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).send('Registro não encontrado');
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Erro ao atualizar status para pago');
+    }
+});
+
+
 module.exports = router;
