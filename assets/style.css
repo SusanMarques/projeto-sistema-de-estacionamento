@@ -97,7 +97,7 @@ label{
     width: 80%;
 }
 
-#placa, #tipo, #descricao{
+#placa, #tipo, #descricao, #cor{
     width: 30%; 
 }
 

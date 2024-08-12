@@ -15,13 +15,13 @@ router.get('/registros', async (req, res) => {
 
 // Rota para adicionar um novo registro
 router.post('/registros', async (req, res) => {
-    const { placa, tipo, descricao, valor_hora, forma_pagamento, status } = req.body;
+    const { placa, tipo, cor, descricao, valor_hora, forma_pagamento, status } = req.body;
     const hora_entrada = new Date();
 
     try {
         const result = await pool.query(
-            'INSERT INTO registros (placa, tipo, descricao, hora_entrada, valor_hora, forma_pagamento, status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-            [placa, tipo, descricao, hora_entrada, valor_hora, forma_pagamento, status]
+            'INSERT INTO registros (placa, tipo, cor, descricao, hora_entrada, valor_hora, forma_pagamento, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+            [placa, tipo,cor, descricao, hora_entrada, valor_hora, forma_pagamento, status]
         );
         res.json(result.rows[0]);
     } catch (err) {

@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         novaLinha.innerHTML = `
             <td>${dadosLinha.placa}</td>
             <td>${dadosLinha.tipo}</td>
+            <td>${dadosLinha.cor}</td>
             <td>${dadosLinha.descricao}</td>
             <td>${new Date(dadosLinha.hora_entrada).toLocaleTimeString()}</td>
             <td>${dadosLinha.valor_hora}</td>
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Pegar os valores dos inputs
         const placa = document.getElementById('placa').value;
         const tipo = document.getElementById('tipo').value;
+        const cor = document.getElementById('cor').value;
         const descricao = document.getElementById('descricao').value;
 
         // Pega a hora atual
@@ -58,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const dadosLinha = {
             placa: placa,
             tipo: tipo,
+            cor: cor,
             descricao: descricao,
             hora_entrada: agora,
             valor_hora: valorHora,
