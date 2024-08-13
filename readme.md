@@ -188,7 +188,7 @@ Sinta-se à vontade para **registrar um novo problema** com o respectivo título
 # :closed_book: Licença
 
 Lançado em 2024.
-Este projeto esta sob a licença [MIT license](https://github.com/NomeDeUsuario/projeto-sistema-de-estacionamento/master/LICENSE).
+Este projeto esta sob a licença [MIT license](https://github.com/SusanMarques/projeto-sistema-de-estacionamento/blob/master/LICENSE).
 
 
 
