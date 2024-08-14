@@ -27,6 +27,7 @@
 - [Encontrou algum bug?](#bug-bugs)
 - [Contribuição](#tada-contribuição)
 - [Licença](#closed_book-licença)
+- [Documento de Requisitos](#documento-de-requisitos)
 
 <br />
 
@@ -191,4 +192,6 @@ Lançado em 2024.
 Este projeto esta sob a licença [MIT license](https://github.com/SusanMarques/projeto-sistema-de-estacionamento/blob/master/LICENSE).
 
 
+# [Documento de requisitos]
 
+Para abrir o documento de requisitos do sistema Smart Park clique aqui: [documento](https://drive.google.com/file/d/1obUWX7tYoqZhJQtIW-nYMeGNBOjqfFsU/view?usp=sharing).
