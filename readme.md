@@ -5,17 +5,10 @@
 > Descrição do projeto "Este sistema trata-se de uma aplicação desktop feita utilizando JavaScript, HTML ,CSS e framework Electron. para a construção do servidor foi utilizado o Express. e o SGBD utilizado foi o postgreSQL. Com o sistema nesta primeira versão é possível cadastrar entrada e saída de veículos, gestão de vagas e gerir o pagamento".
 
 [![Autor](https://img.shields.io/badge/SusanMarques-SusanMarques-ff9000?style=flat-square)](https://github.com/SusanMarques)
-[![Languages](https://img.shields.io/github/languages/count/SusanMarques/projeto-sistema-de-estacionamento
-?color=%23ff9000&style=flat-square)](#)
-[![Stars](https://img.shields.io/github/stars/SusanMarques/projeto-sistema-de-estacionamento
-?color=ff9000&style=flat-square)](https://github.com/SusanMarques/projeto-sistema-de-estacionamento
-/stargazers)
-[![Forks](https://img.shields.io/github/forks/SusanMarques/projeto-sistema-de-estacionamento
-?color=%23ff9000&style=flat-square)](https://github.com/SusanMarques/projeto-sistema-de-estacionamento
-/network/members)
-[![Contributors](https://img.shields.io/github/contributors/SusanMarques/projeto-sistema-de-estacionamento
-?color=ff9000&style=flat-square)](https://github.com/SusanMarques/projeto-sistema-de-estacionamento
-/graphs/contributors)
+[![Languages](https://img.shields.io/github/languages/count/SusanMarquesprojeto-sistema-de-estacionamento?color=%23ff9000&style=flat-square)](#)
+[![Stars](https://img.shields.io/github/stars/SusanMarques/projeto-sistema-de-estacionamento?color=ff9000&style=flat-square)](https://github.com/SusanMarques/projeto-sistema-de-estacionamento/stargazers)
+[![Forks](https://img.shields.io/github/forks/SusanMarques/projeto-sistema-de-estacionamento?color=%23ff9000&style=flat-square)](https://github.com/SusanMarques/projeto-sistema-de-estacionamento/network/members)
+[![Contributors](https://img.shields.io/github/contributors/SusanMarques/projeto-sistema-de-estacionamento?color=ff9000&style=flat-square)](https://github.com/SusanMarques/projeto-sistema-de-estacionamento/graphs/contributors)
 
 # :pushpin: Sumario deste projeto
 
