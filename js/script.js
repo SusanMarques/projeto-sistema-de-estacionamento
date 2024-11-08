@@ -201,4 +201,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Iniciar o relógio
     startTime();
+
+    //   selecionar a tabela datatable
+    $(function() {
+        $('.table.table-striped').DataTable();
+    });
 });

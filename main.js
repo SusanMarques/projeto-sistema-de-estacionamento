@@ -9,10 +9,9 @@ function createWindow() {
         width: 1500,
         height: 1000,
         icon: 'assets/icon/logo-smart-park.ico',
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
-        },
+        preload: path.join(__dirname, 'preload.js'),  // Carrega o arquivo de preload
+        contextIsolation: true, // Mantenha o isolamento de contexto para segurança
+        enableRemoteModule: true,
     });
 
     mainWindow.loadFile('app/index.html');
