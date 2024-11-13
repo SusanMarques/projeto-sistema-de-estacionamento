@@ -5,11 +5,12 @@ const registrosRouter = require('./routes/registros.js'); // Importa as rotas de
 const app = express();
 const port = 3001;
 
-// Middleware
+
 app.use(express.json());
 
 // Rotas
 app.use('/api', registrosRouter); // Usa o router de registros
+
 
 // Iniciar o servidor
 app.listen(port, () => {
