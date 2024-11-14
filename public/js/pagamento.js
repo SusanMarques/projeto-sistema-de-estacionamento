@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+
     async function carregarRegistrosAPagar() {
         try {
             const response = await fetch('http://localhost:3001/api/registros/apagar');
@@ -87,4 +87,3 @@ document.addEventListener('DOMContentLoaded', function() {
     carregarRegistrosAPagar();
     document.getElementById('search-placa').addEventListener('input', buscarPlaca);
     startTime();
-});

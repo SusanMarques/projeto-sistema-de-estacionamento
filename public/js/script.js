@@ -1,5 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+
     let totalVagas = 30; // Definindo o total de vagas
+ // Anexar eventos aos botões com verificações
+    const botaoForm = document.getElementById('botao-form');
+        if (botaoForm) {
+        botaoForm.addEventListener('click', adicionarNaTabela);
+    }
 
     // Função para carregar registros do servidor ao inicializar a página
     async function carregarRegistros() {
@@ -188,11 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carregar os registros quando a página for carregada
     carregarRegistros();
 
-    // Anexar eventos aos botões com verificações
-    const botaoForm = document.getElementById('botao-form');
-    if (botaoForm) {
-        botaoForm.addEventListener('click', adicionarNaTabela);
-    }
+   
 
     const searchPlaca = document.getElementById('search-placa');
     if (searchPlaca) {
@@ -202,4 +203,3 @@ document.addEventListener('DOMContentLoaded', function() {
     // Iniciar o relógio
     startTime();
 
-});

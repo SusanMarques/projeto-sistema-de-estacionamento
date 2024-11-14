@@ -15,7 +15,7 @@ function createWindow() {
         },
     });
 
-    mainWindow.loadFile(path.join(__dirname, 'app', 'layout.html'));
+    mainWindow.loadURL('http://localhost:3001');
 }
 
 app.whenReady().then(() => {
